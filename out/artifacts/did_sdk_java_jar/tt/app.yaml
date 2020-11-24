@@ -1,0 +1,18 @@
+runtime: java
+env: flex
+
+readiness_check:
+  app_start_timeout_sec: 600
+  
+handlers:
+  - url: /.*
+    script: this field is required, but ignored
+
+runtime_config:
+  jdk: openjdk8
+
+resources:
+  cpu: 2
+  memory_gb: 8.0
+  disk_size_gb: 20
+

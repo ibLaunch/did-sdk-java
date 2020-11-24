@@ -1,0 +1,57 @@
+import com.google.cloud.tools.gradle.appengine.standard.AppEngineStandardExtension
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+	classpath group: 'io.ratpack', name: 'ratpack-gradle', version: '1.8.0'
+      classpath 'com.google.cloud.tools:appengine-gradle-plugin:2.3.0'
+  }
+}
+
+apply plugin: "io.ratpack.ratpack-java"
+apply plugin: "ru.vyarus.quality"
+apply plugin: 'com.google.cloud.tools.appengine'
+
+//configure<AppEngineStandardExtension> { deploy { projectId = "GCLOUD_CONFIG" version = "GCLOUD_CONFIG" } }
+
+/*configure<AppEngineStandardExtension> {
+  deploy {
+    projectId = "GCLOUD_CONFIG"
+    version = "GCLOUD_CONFIG"
+    stopPreviousVersion = true // etc
+  }
+}*/
+appengine {
+  deploy {
+    version = "GCLOUD_CONFIG"
+    projectId = "GCLOUD_CONFIG"
+  }
+}
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  implementation rootProject
+  implementation group: 'com.hedera.hashgraph', name: 'sdk', version: '1.1.4'
+  implementation group: 'org.bitcoinj', name: 'bitcoinj-core', version: '0.15.6'
+  implementation group: 'io.github.cdimascio', name: 'java-dotenv', version: '5.1.4'
+  implementation group: 'io.grpc', name: 'grpc-okhttp', version: '1.28.0'
+  implementation group: 'com.github.jsonld-java', name: 'jsonld-java', version: '0.12.3'
+  implementation group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '8.14.1'
+  implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
+}
+
+mainClassName = "com.hedera.hashgraph.identity.hcs.example.appnet.AppnetServer"
+
+
+quality {
+	checkstyleVersion = '8.29'
+	spotbugsVersion = '4.0.1'
+	checkstyle = true
+    spotbugs = true
+    pmd = true
+}
